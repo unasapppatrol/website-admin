@@ -1,0 +1,7 @@
+/* CSS untuk menyembunyikan tombol-tombol edit dan hapus saat mencetak */
+@media print {
+  .btn-edit,
+  .btn-hapus {
+    display: none !important;
+  }
+}

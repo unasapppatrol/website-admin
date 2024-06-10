@@ -1,0 +1,9 @@
+.custom-modal-width {
+  max-width: 900px; /* Sesuaikan dengan lebar yang Anda inginkan */
+  width: 90%; /* Opsional: Untuk mengatur lebar modal relatif terhadap lebar layar */
+}
+
+.custom-modal-delete {
+  max-width: 500px; /* Sesuaikan dengan lebar yang Anda inginkan */
+  width: 90%; /* Opsional: Untuk mengatur lebar modal relatif terhadap lebar layar */
+}
