@@ -1,6 +1,6 @@
 // TokenContext.js
 
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 const UserContext = createContext();
 
@@ -12,6 +12,7 @@ export const UserProvider = ({ children }) => {
   const storeID = async (value) => {
     try {
       localStorage.setItem("id", value);
+      setId(value);
     } catch (error) {
       console.error("Error storing id user:", error);
     }
@@ -20,6 +21,7 @@ export const UserProvider = ({ children }) => {
   const storeRole = async (value) => {
     try {
       localStorage.setItem("role", value);
+      setRole(value);
     } catch (error) {
       console.error("Error storing role user", error);
     }
@@ -27,49 +29,11 @@ export const UserProvider = ({ children }) => {
   const storeUsername = async (value) => {
     try {
       localStorage.setItem("username", value);
+      setUser(value);
     } catch (error) {
       console.error("Error storing role user", error);
     }
   };
-
-  const retrieveID = async () => {
-    try {
-      const value = localStorage.getItem("id");
-      if (value !== null) {
-        setId(value);
-      }
-    } catch (error) {
-      console.error("Error retrieving token:", error);
-    }
-  };
-
-  const retrieveRole = async () => {
-    try {
-      const value = localStorage.getItem("role");
-      if (value !== null) {
-        setRole(value);
-      }
-    } catch (error) {
-      console.error("Error retrieving token:", error);
-    }
-  };
-  const retrieveUsername = async () => {
-    try {
-      const value = localStorage.getItem("username");
-      if (value !== null) {
-        setUser(value);
-      }
-    } catch (error) {
-      console.error("Error retrieving token:", error);
-    }
-  };
-
-  // Memanggil retrieveID saat context provider pertama kali di-load
-  useEffect(() => {
-    retrieveID();
-    retrieveRole();
-    retrieveUsername();
-  }, []);
 
   return (
     <UserContext.Provider
