@@ -40,9 +40,6 @@ const Login = () => {
       setIsSuccess(true);
       setIsError(false);
       setSuccessMessage("Login berhasil...");
-      setUser("username", response.data.username);
-      setId("userId", response.data.userId);
-      setRole("role", response.data.role);
       storeID(response.data.userId);
       storeRole(response.data.role);
       storeUsername(response.data.username);
