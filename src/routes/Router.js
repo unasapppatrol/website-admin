@@ -1,7 +1,8 @@
 import { lazy } from "react";
+import RootLayout from "../layouts/RootLayout.js";
 
 /****Layouts*****/
-const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
+const MainLayout = lazy(() => import("../layouts/MainLayout.js"));
 // You can import another layout if you have one, or simply use a fragment for no layout
 
 /***** Pages ****/
@@ -17,21 +18,25 @@ const ProfilAdmin = lazy(() => import("../views/profil.js"));
 
 /*****Routes******/
 
-const ThemeRoutes = [
+const routes = [
   {
     path: "/",
-    element: <FullLayout />, // Assuming FullLayout is the default layout
+    element: <MainLayout />,
     children: [
-      { path: "/", exact: true, element: <Login /> }, // Change this line to avoid using FullLayout
-      { path: "/dashboard", exact: true, element: <Starter /> },
-      { path: "/data_absensi", exact: true, element: <DataAbsensi /> },
-      { path: "/data_users", exact: true, element: <DataUsers /> },
-      { path: "/data_patroli", exact: true, element: <DataPatroli /> },
-      { path: "/data_pos", exact: true, element: <DataPos /> },
-      { path: "/data_aktivitas", exact: true, element: <DataAktivitas /> },
-      { path: "/profil", exact: true, element: <ProfilAdmin /> },
+      { path: "", exact: true, element: <Starter /> },
+      { path: "data_absensi", exact: true, element: <DataAbsensi /> },
+      { path: "data_users", exact: true, element: <DataUsers /> },
+      { path: "data_patroli", exact: true, element: <DataPatroli /> },
+      { path: "data_pos", exact: true, element: <DataPos /> },
+      { path: "data_aktivitas", exact: true, element: <DataAktivitas /> },
+      { path: "profil", exact: true, element: <ProfilAdmin /> },
     ],
+  },
+  {
+    path: "/auth",
+    element: <RootLayout />,
+    children: [{ path: "", element: <Login /> }],
   },
 ];
 
-export default ThemeRoutes;
+export default routes;

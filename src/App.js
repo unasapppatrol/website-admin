@@ -1,7 +1,8 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import FullLayout from "./layouts/FullLayout";
+import FullLayout from "./layouts/MainLayout";
 import Loader from "./layouts/loader/Loader";
+import RootLayout from "./layouts/RootLayout";
 
 const Login = lazy(() => import("./auth/login"));
 const Starter = lazy(() => import("./views/Starter"));
@@ -17,14 +18,16 @@ const App = () => {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<FullLayout />}>
-          <Route index element={<Login />} />
-          <Route path="dashboard" element={<Starter />} />
+          <Route path="" element={<Starter />} />
           <Route path="data_absensi" element={<DataAbsensi />} />
           <Route path="data_users" element={<DataUsers />} />
           <Route path="data_patroli" element={<DataPatroli />} />
           <Route path="data_pos" element={<DataPos />} />
           <Route path="data_aktivitas" element={<DataAktivitas />} />
           <Route path="profil" element={<ProfilAdmin />} />
+        </Route>
+        <Route path="/auth" element={<RootLayout />}>
+          <Route path="" element={<Login />} />
         </Route>
       </Routes>
     </Suspense>

@@ -1,6 +1,4 @@
-// TokenContext.js
-
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 const UserContext = createContext();
 
@@ -8,45 +6,40 @@ export const UserProvider = ({ children }) => {
   const [id, setId] = useState(null);
   const [role, setRole] = useState(null);
   const [user, setUser] = useState(null);
+  const [loadingStorage, setLoadingStorage] = useState(true);
 
-  const storeID = async (value) => {
-    try {
-      localStorage.setItem("id", value);
-      setId(value);
-    } catch (error) {
-      console.error("Error storing id user:", error);
-    }
-  };
+  useEffect(() => {
+    const storedId = localStorage.getItem("id");
+    const storedRole = localStorage.getItem("role");
+    const storedUsername = localStorage.getItem("username");
 
-  const storeRole = async (value) => {
-    try {
-      localStorage.setItem("role", value);
-      setRole(value);
-    } catch (error) {
-      console.error("Error storing role user", error);
-    }
-  };
-  const storeUsername = async (value) => {
-    try {
-      localStorage.setItem("username", value);
-      setUser(value);
-    } catch (error) {
-      console.error("Error storing role user", error);
-    }
-  };
+    if (storedId) setId(storedId);
+    if (storedRole) setRole(storedRole);
+    if (storedUsername) setUser(storedUsername);
+    setLoadingStorage(false);
+  }, []);
 
+  useEffect(() => {
+    if (id) {
+      localStorage.setItem("id", id);
+    }
+    if (user) {
+      localStorage.setItem("username", user);
+    }
+    if (role) {
+      localStorage.setItem("role", role);
+    }
+  }, [id, role, user]);
   return (
     <UserContext.Provider
       value={{
+        loadingStorage,
         id,
         setId,
-        storeID,
         role,
         setRole,
-        storeRole,
         user,
         setUser,
-        storeUsername,
       }}
     >
       {children}

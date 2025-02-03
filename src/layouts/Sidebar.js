@@ -7,7 +7,7 @@ import logo_unas from "../assets/images/logos/logo_unas.png";
 const navigation = [
   {
     title: "Dashboard",
-    href: "/dashboard",
+    href: "/",
     icon: "bi bi-speedometer2",
   },
   {

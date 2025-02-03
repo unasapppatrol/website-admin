@@ -11,6 +11,7 @@ import {
   Input,
   InputGroup,
   Row,
+  Spinner,
 } from "reactstrap";
 import logo_unas from "../assets/images/logos/logo_unas.png";
 import logo_product from "../assets/images/logos/logo_product.png";
@@ -23,8 +24,7 @@ import { useAuth } from "../context/userContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setId, setRole, setUser, storeID, storeRole, storeUsername } =
-    useAuth();
+  const { setId, setRole, setUser } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -40,10 +40,10 @@ const Login = () => {
       setIsSuccess(true);
       setIsError(false);
       setSuccessMessage("Login berhasil...");
-      storeID(response.data.userId);
-      storeRole(response.data.role);
-      storeUsername(response.data.username);
-      navigate("/dashboard");
+      setId(response.data.userId);
+      setRole(response.data.role);
+      setUser(response.data.username);
+      navigate("/");
     },
     onError: (error) => {
       setIsLoading(false);
@@ -60,7 +60,7 @@ const Login = () => {
     setSuccessMessage("");
   };
 
-  const MESSAGE_DISPLAY_TIME = 2000; // dalam milidetik (5 detik)
+  const MESSAGE_DISPLAY_TIME = 2000;
   if (isError || isSuccess) {
     setTimeout(clearMessages, MESSAGE_DISPLAY_TIME);
   }
@@ -72,10 +72,6 @@ const Login = () => {
       password: password,
     });
   };
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <div className="min-vh-100 d-flex flex-row align-items-center">
@@ -116,8 +112,16 @@ const Login = () => {
                           color="primary"
                           className="mx-2 px-3 py-2"
                           onClick={handleOnLogin}
+                          disabled={isLoading}
                         >
-                          Login
+                          {isLoading ? (
+                            <div className="d-flex flex-row align-items-center gap-2">
+                              <Spinner color="light" size={"sm"} />
+                              <span>Processing</span>
+                            </div>
+                          ) : (
+                            "Login"
+                          )}
                         </Button>
                       </Col>
                     </Row>

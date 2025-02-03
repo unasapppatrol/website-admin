@@ -29,7 +29,7 @@ const Header = () => {
 
   function handleOnLogout() {
     localStorage.clear();
-    navigate("/");
+    navigate("/auth");
   }
 
   const handleToProfil = () => {
